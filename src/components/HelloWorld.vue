@@ -22,40 +22,38 @@
           </div>
 
           <!-- <input type="submit" value="Send" > -->
-          <button @click="sendMail" class="bg-slate-500 color text-white mt-5">Send</button>
+          <button @click="sendMail" class="bg-slate-500 color text-white mt-5" type="button">Send</button>
         </form>
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import emailjs from "emailjs-com";
-export default {
-    data(){
-        return{
-            anonim:false,
-            intruderName: '',
-            fullName: 'anonim',
-            posada:'',
-            place:'',
-            message:'',
-            phone:'---',
-            //emailTo:'koratgorovich2017@gmail.com',
-            emailTo:'sladkovaoe@gmail.com',
-        }
-    },
-    methods:{
-        sendMail(){
+
+var anonim = ref(false)
+var intruderName = ref('')
+var fullName = ref('anonim')
+var posada = ref('')
+var place = ref('')
+var message = ref('')
+var phone = ref('---')
+var emailTo = ref('koratgorovich2017@gmail.com')
+
+//const emailTo = ref('sladkovaoe@gmail.com')
+
+function sendMail(){
             //emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
             console.log('Try!');
             emailjs.send('service_djz7rj7', 'template_s8ijnzb', {
-                emailTo: this.emailTo,
-                message: this.message,
-                to_name: this.emailTo.slice(0,this.emailTo.indexOf("@")),
-                intruderName: this.intruderName,
-                posada: this.posada,
-                place: this.place,
-                fullName: this.fullName,
-                phone: this.phone,
+                emailTo: emailTo.value,
+                message: message.value,
+                to_name: emailTo.value.slice(0,emailTo.value.indexOf("@")),
+                intruderName: intruderName.value,
+                posada: posada.value,
+                place: place.value,
+                fullName: fullName.value,
+                phone: phone.value,
             },"HMBT3j8u7Sjcz0Q_Y")
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
@@ -63,16 +61,52 @@ export default {
             function(error) {
                 console.log('FAILED...', error);
             });
-
-            // emailjs.send("service_djz7rj7","template_s8ijnzb",{
-            //     to_name: "uuu",
-            //     message: "yyyyyyyyy",
-            //     from_name: "drgdrg",
-            //     emailTo: "koratgorovich2017@gmail.com",
-            // });
-        }
-    }
 }
+
+// export default {
+//     data(){
+//         return{
+//             anonim:false,
+//             intruderName: '',
+//             fullName: 'anonim',
+//             posada:'',
+//             place:'',
+//             message:'',
+//             phone:'---',
+//             //emailTo:'koratgorovich2017@gmail.com',
+//             emailTo:'sladkovaoe@gmail.com',
+//         }
+//     },
+//     methods:{
+//         sendMail(){
+//             //emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+//             console.log('Try!');
+//             emailjs.send('service_djz7rj7', 'template_s8ijnzb', {
+//                 emailTo: this.emailTo,
+//                 message: this.message,
+//                 to_name: this.emailTo.slice(0,this.emailTo.indexOf("@")),
+//                 intruderName: this.intruderName,
+//                 posada: this.posada,
+//                 place: this.place,
+//                 fullName: this.fullName,
+//                 phone: this.phone,
+//             },"HMBT3j8u7Sjcz0Q_Y")
+//             .then(function(response) {
+//                 console.log('SUCCESS!', response.status, response.text);
+//             }, 
+//             function(error) {
+//                 console.log('FAILED...', error);
+//             });
+
+//             // emailjs.send("service_djz7rj7","template_s8ijnzb",{
+//             //     to_name: "uuu",
+//             //     message: "yyyyyyyyy",
+//             //     from_name: "drgdrg",
+//             //     emailTo: "koratgorovich2017@gmail.com",
+//             // });
+//         }
+//     }
+// }
 
 </script>
 
